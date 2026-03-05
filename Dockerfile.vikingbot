@@ -56,8 +56,9 @@ RUN cp -r /app/bridge/* /root/.openviking/bridge/ && \
 # Entrypoint: generate ov.conf from env vars
 # ============================================
 
+# Strip Windows CRLF line endings before making executable.
 COPY docker-entrypoint-bot.sh /docker-entrypoint.sh
-RUN chmod +x /docker-entrypoint.sh
+RUN sed -i 's/\r$//' /docker-entrypoint.sh && chmod +x /docker-entrypoint.sh
 
 EXPOSE 18791 18790
 
